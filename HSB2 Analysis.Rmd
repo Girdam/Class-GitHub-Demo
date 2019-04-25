@@ -1,0 +1,34 @@
+---
+title: "HSB2 Analysis"
+output: html_notebook
+---
+```{r, include = FALSE}
+
+library(tidyverse)
+
+hsb2 <- read.csv("hsb2.csv")
+
+hsb2$ses <- factor(hsb2$ses, level = 1:3, c("Low", "middle", "high"))
+```
+
+
+## Relationship of SES to Math Scores
+
+This section will look at the relationship of socioeconomic status to math scores.
+I will begin with summary of the math scores. 
+
+```{r}
+hsb2 %>%
+  group_by(ses) %>%
+  summarize(mean(math), median(math), sd(math), min(math), max(math))
+  
+```
+
+## Now let's look at a plot
+
+```{r}
+hsb2 %>%
+  ggplot(aes(x = ses, math)) +
+  geom_boxplot()
+```
+
